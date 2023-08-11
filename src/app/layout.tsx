@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={cn(inter.className, "flex flex-col gap-10")}>
+      <body className={cn(inter.className, "flex flex-col gap-4 md:gap-10")}>
         {children}
       </body>
     </html>
