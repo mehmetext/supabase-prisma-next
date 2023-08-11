@@ -2,26 +2,14 @@ import Link from "next/link";
 import Container from "./Container";
 import Logo from "./Logo";
 import Avatar from "./Avatar";
+import HeaderMenu from "./HeaderMenu";
 
 export default function Header() {
   return (
     <header className="bg-orange-500 text-white py-5">
       <Container as="div" className="flex items-center justify-between gap-4">
         <Logo />
-        <nav className="flex-1 flex items-center gap-4">
-          <Link
-            href="/"
-            className=" text-white/70 font-medium transition hover:text-white"
-          >
-            Quotes
-          </Link>
-          <Link
-            href="/"
-            className=" text-white/70 font-medium transition hover:text-white"
-          >
-            My Quotes
-          </Link>
-        </nav>
+        <HeaderMenu />
         {/* <div className="flex items-center gap-2">
           <Link
             href="/auth/login"
