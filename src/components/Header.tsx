@@ -3,8 +3,11 @@ import Link from "next/link";
 export default function Header() {
   return (
     <header className="p-4 flex items-center justify-between bg-orange-500 text-white">
-      <Link href="/" className="text-3xl font-bold italic">
-        SP-Next
+      <Link
+        href="/"
+        className="text-3xl font-bold italic transition-all hover:tracking-wider"
+      >
+        SP Next
       </Link>
       <div className="flex items-center gap-2">
         <Link
