@@ -1,3 +1,4 @@
+import Container from "@/components/Container";
 import Header from "@/components/Header";
 
 export default function SiteLayout({
@@ -8,7 +9,7 @@ export default function SiteLayout({
   return (
     <>
       <Header />
-      <main>{children}</main>
+      <Container as="main">{children}</Container>
     </>
   );
 }
