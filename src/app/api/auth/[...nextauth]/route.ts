@@ -17,19 +17,32 @@ const handler = NextAuth({
         password: { label: "password", type: "password" },
       },
       authorize: async (credentials, req) => {
+        console.log(1);
         if (!(credentials?.username && credentials.password)) {
+          console.log(2);
           throw new Error("Gerekli bilgiler girilmedi!");
         }
 
+        console.log(3);
         const user = await prisma.user.findUnique({
           where: {
             username: credentials.username,
           },
         });
 
-        if (!user) throw new Error("Username or password incorrect!");
-        if (await bcrypt.compare(credentials.password, user.hashedPassword))
+        if (!user) {
+          console.log(4);
           throw new Error("Username or password incorrect!");
+        }
+        if (
+          await bcrypt.compare(
+            await bcrypt.hash(credentials.password, 12),
+            user.hashedPassword
+          )
+        ) {
+          console.log(5);
+          throw new Error("Username or password incorrect!");
+        }
 
         return user;
       },
