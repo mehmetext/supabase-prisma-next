@@ -7,7 +7,7 @@ export default function Header() {
       <Container as="div" className="flex items-center justify-between gap-4">
         <Link
           href="/"
-          className="text-3xl font-bold italic transition-all hover:tracking-wider"
+          className="text-3xl font-bold italic transition-all hover:scale-110"
         >
           SP Next
         </Link>
