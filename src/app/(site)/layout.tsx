@@ -9,7 +9,9 @@ export default function SiteLayout({
   return (
     <>
       <Header />
-      <Container as="main">{children}</Container>
+      <Container as="main" className="flex flex-col gap-4">
+        {children}
+      </Container>
     </>
   );
 }
