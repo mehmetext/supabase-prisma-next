@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Avatar from "./Avatar";
 
 export default function QuoteItem({ str }: { str: string }) {
   return (
@@ -19,10 +20,9 @@ export default function QuoteItem({ str }: { str: string }) {
           <p className="text-xs text-black/40 leading-none">mehmetext</p>
         </div>
         <div className="shrink-0">
-          <img
+          <Avatar
+            alt="mehmetext"
             src="https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/authors/1673611182i/3565._UX200_CR0,15,200,200_.jpg"
-            alt="Avatar"
-            className="w-8 h-8 rounded-full object-cover"
           />
         </div>
       </Link>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Container from "./Container";
 import Logo from "./Logo";
+import Avatar from "./Avatar";
 
 export default function Header() {
   return (
@@ -21,7 +22,7 @@ export default function Header() {
             My Quotes
           </Link>
         </nav>
-        <div className="flex items-center gap-2">
+        {/* <div className="flex items-center gap-2">
           <Link
             href="/auth/login"
             className="bg-orange-600 py-2 px-3 font-medium rounded transition hover:bg-orange-700"
@@ -30,9 +31,21 @@ export default function Header() {
           </Link>
           <Link
             href="/auth/register"
-            className="bg-orange-600 py-2 px-3 font-medium rounded transition hover:bg-orange-700"
+            className="bg-green-600 py-2 px-3 font-medium rounded transition hover:bg-green-700"
           >
             Register
+          </Link>
+        </div> */}
+        <div className="flex items-center justify-center gap-4">
+          <div className="flex gap-2 items-center justify-center">
+            <Avatar alt="mehmetext" />
+            mehmetext
+          </div>
+          <Link
+            href="/"
+            className="bg-red-600 py-2 px-3 font-medium rounded transition hover:bg-red-700"
+          >
+            Log Out
           </Link>
         </div>
       </Container>
