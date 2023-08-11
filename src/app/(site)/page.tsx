@@ -1,3 +1,9 @@
+import AllQuotes from "@/components/AllQuotes";
+
 export default function Home() {
-  return <>supabase-prisma-next</>;
+  return (
+    <>
+      <AllQuotes />
+    </>
+  );
 }
