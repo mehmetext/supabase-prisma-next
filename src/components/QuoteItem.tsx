@@ -6,10 +6,10 @@ export default function QuoteItem({ str }: { str: string }) {
       <div className="absolute right-0 top-0 text-sm bg-red-500/30 text-red-700 font-medium px-2 py-1 rounded-bl-md">
         -1
       </div>
-      <p className="mx-4 font-medium">
-        <span className="font-thin pr-1">“</span>
+      <p className="mx-4 font-light">
+        <span className="font-bold pr-1">“</span>
         {str}
-        <span className="font-thin pl-1">”</span>
+        <span className="font-bold pl-1">”</span>
       </p>
       <Link href="/" className="self-end flex items-center gap-2 mx-4">
         <div className="flex flex-col text-right">
