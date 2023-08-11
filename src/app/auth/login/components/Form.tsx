@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { useRouter } from "next/navigation";
 import { Formik } from "formik";
 import wait from "@/lib/utils/wait";
+import { signIn } from "next-auth/react";
 
 const LoginSchema = Yup.object().shape({
   username: Yup.string().required("Required").max(20, "Too long!"),
@@ -21,7 +22,18 @@ export default function Form() {
       }}
       validationSchema={LoginSchema}
       onSubmit={async (values) => {
-        await wait(500);
+        const res = await signIn("credentials", {
+          username: values.username,
+          password: values.password,
+          redirect: false,
+        });
+
+        if (res?.error) {
+          alert(res.error);
+          return;
+        }
+
+        router.replace("/");
       }}
     >
       {({
