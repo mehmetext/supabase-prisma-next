@@ -35,6 +35,8 @@ const handler = NextAuth({
       },
     }),
   ],
+  debug: process.env.NODE_ENV === "development",
+  secret: process.env.NEXTAUTH_URL,
 });
 
 export { handler as GET, handler as POST };
