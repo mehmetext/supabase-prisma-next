@@ -1,10 +1,19 @@
-import wait from "@/lib/utils/wait";
-import QuoteItem from "./QuoteItem";
+"use client";
 
-export default async function AllQuotes() {
-  await wait(100);
+import QuoteItem from "./QuoteItem";
+import Masonry from "react-masonry-css";
+
+export default function AllQuotes() {
   return (
-    <div className="gap-x-4 space-y-4 sm:columns-2 md:columns-3">
+    <Masonry
+      breakpointCols={{
+        default: 3,
+        1280: 2,
+        768: 1,
+      }}
+      className="flex gap-4"
+      columnClassName="flex flex-col gap-4"
+    >
       <QuoteItem str="Assumenda deserunt nihil atque nesciunt quas, error tenetur nostrum in enim voluptates accusantium." />
       <QuoteItem str="Lorem, ipsum dolor sit amet consectetur adipisicing elit." />
       <QuoteItem str="Lorem ipsum." />
@@ -15,6 +24,6 @@ export default async function AllQuotes() {
       <QuoteItem str="At blanditiis magnam perspiciatis illum sit reiciendis rerum earum." />
       <QuoteItem str="At blanditiis magnam perspiciatis illum sit reiciendis rerum earum." />
       <QuoteItem str="Assumenda deserunt nihil atque nesciunt quas, error tenetur nostrum in enim voluptates accusantium." />
-    </div>
+    </Masonry>
   );
 }
