@@ -1,11 +1,9 @@
 "use client";
 
-import wait from "@/lib/utils/wait";
 import QuoteItem from "./QuoteItem";
 import Masonry from "react-masonry-css";
 
 export default async function AllQuotes() {
-  await wait(100);
   return (
     <Masonry
       breakpointCols={{
