@@ -5,17 +5,17 @@ import cn from "@/lib/utils/cn";
 
 export default function QuoteItem({
   quote,
-  isMine,
+  showUpDown,
 }: {
   quote: Quote & { user: User };
-  isMine: boolean;
+  showUpDown: boolean;
 }) {
   return (
     <div
       className={cn(
         "bg-orange-100/60 break-inside-avoid rounded-md flex flex-col pt-8 gap-4 overflow-hidden relative border border-orange-200 transition-all hover:scale-105 hover:shadow-md hover:bg-orange-100",
         {
-          "pb-4": isMine,
+          "pb-4": !showUpDown,
         }
       )}
     >
@@ -49,7 +49,7 @@ export default function QuoteItem({
           <Avatar alt={quote.user.username} src={quote.user.image} />
         </div>
       </Link>
-      {!isMine && (
+      {showUpDown && (
         <div className="grid grid-cols-2">
           <button className="flex items-center justify-center py-2 text-sm bg-green-500/30 text-green-700 font-medium transition hover:bg-green-500/50">
             Up

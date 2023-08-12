@@ -25,7 +25,7 @@ export default function AllQuotes({
         <QuoteItem
           key={quote.id}
           quote={quote}
-          isMine={me?.id === quote.user.id}
+          showUpDown={me != null && me?.id !== quote.user.id}
         />
       ))}
     </Masonry>
