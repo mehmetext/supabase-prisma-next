@@ -1,11 +1,12 @@
 "use client";
 
-import wait from "@/lib/utils/wait";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 const RegisterSchema = Yup.object().shape({
+  name: Yup.string().required("Required").max(40, "Too long!"),
   username: Yup.string().required("Required").max(20, "Too long!"),
   email: Yup.string().email("Invalid E-Mail").required("Required"),
   password: Yup.string().required("Required"),
@@ -20,6 +21,7 @@ export default function RegisterForm() {
   return (
     <Formik
       initialValues={{
+        name: "",
         username: "",
         email: "",
         password: "",
@@ -27,7 +29,33 @@ export default function RegisterForm() {
       }}
       validationSchema={RegisterSchema}
       onSubmit={async (values) => {
-        await wait(500);
+        const res = await fetch("/api/auth/create-user", {
+          method: "POST",
+          body: JSON.stringify({
+            ...values,
+          }),
+        });
+
+        const data = await res.json();
+
+        if (data.status === "error") {
+          alert(data.message);
+          return;
+        }
+
+        const loginRes = await signIn("credentials", {
+          username: data.user.username,
+          password: data.user.hashedPassword,
+          redirect: false,
+        });
+
+        if (loginRes?.error) {
+          alert(loginRes.error);
+          return;
+        }
+
+        router.refresh();
+        router.push("/");
       }}
     >
       {({
@@ -44,6 +72,20 @@ export default function RegisterForm() {
             <label className="flex flex-col gap-1">
               <input
                 type="text"
+                name="name"
+                placeholder="Name"
+                className="outline-none border rounded-md p-2 transition focus:border-orange-500"
+                value={values.name}
+                onBlur={handleBlur}
+                onChange={handleChange}
+              />
+              {touched.name && errors.name && (
+                <span className="mx-2 text-red-500 text-xs">{errors.name}</span>
+              )}
+            </label>
+            <label className="flex flex-col gap-1">
+              <input
+                type="text"
                 name="username"
                 placeholder="Username"
                 className="outline-none border rounded-md p-2 transition focus:border-orange-500"
@@ -57,6 +99,7 @@ export default function RegisterForm() {
                 </span>
               )}
             </label>
+
             <label className="flex flex-col gap-1">
               <input
                 type="email"
