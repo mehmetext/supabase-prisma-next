@@ -7,7 +7,7 @@ export default async function Home() {
 
   return (
     <>
-      {user && <AddQuote />}
+      {user && <AddQuote user={user} />}
       <AllQuotes />
     </>
   );
