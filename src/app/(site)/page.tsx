@@ -1,11 +1,11 @@
 import AddQuote from "@/components/AddQuote";
-import AllQuotes from "@/components/AllQuotes";
+import HomeAllQuotes from "@/components/HomeAllQuotes";
 
 export default function Home() {
   return (
     <>
       <AddQuote />
-      <AllQuotes />
+      <HomeAllQuotes />
     </>
   );
 }

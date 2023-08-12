@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Container from "./Container";
 import Logo from "./Logo";
-import Avatar from "./Avatar";
 import HeaderMenu from "./HeaderMenu";
 
 export default function Header() {
@@ -10,7 +9,7 @@ export default function Header() {
       <Container as="div" className="flex items-center justify-between gap-4">
         <Logo />
         <HeaderMenu />
-        {/* <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <Link
             href="/auth/login"
             className="bg-orange-600 py-2 px-3 font-medium rounded transition hover:bg-orange-700"
@@ -23,8 +22,8 @@ export default function Header() {
           >
             Register
           </Link>
-        </div> */}
-        <div className="flex items-center justify-center gap-4">
+        </div>
+        {/* <div className="flex items-center justify-center gap-4">
           <div className="flex gap-2 items-center justify-center">
             <Avatar alt="mehmetext" />
             mehmetext
@@ -35,7 +34,7 @@ export default function Header() {
           >
             Log Out
           </Link>
-        </div>
+        </div> */}
       </Container>
     </header>
   );

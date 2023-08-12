@@ -3,7 +3,7 @@
 import QuoteItem from "./QuoteItem";
 import Masonry from "react-masonry-css";
 
-export default async function AllQuotes() {
+export default function AllQuotes() {
   return (
     <Masonry
       breakpointCols={{
