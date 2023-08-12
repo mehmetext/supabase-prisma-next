@@ -9,5 +9,5 @@ export default async function ProfileAllQuotes({ user }: { user: User }) {
     orderBy: [{ createdAt: "desc" }],
   });
 
-  return <AllQuotes quotes={quotes} />;
+  return <AllQuotes quotes={quotes} me={user} />;
 }

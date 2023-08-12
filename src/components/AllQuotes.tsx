@@ -6,8 +6,10 @@ import Masonry from "react-masonry-css";
 
 export default function AllQuotes({
   quotes,
+  me,
 }: {
   quotes: Array<Quote & { user: User }>;
+  me: User | null;
 }) {
   return (
     <Masonry
@@ -20,7 +22,11 @@ export default function AllQuotes({
       columnClassName="flex flex-col gap-4"
     >
       {quotes.map((quote) => (
-        <QuoteItem key={quote.id} quote={quote} />
+        <QuoteItem
+          key={quote.id}
+          quote={quote}
+          isMine={me?.id === quote.user.id}
+        />
       ))}
     </Masonry>
   );
