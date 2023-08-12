@@ -1,4 +1,10 @@
-export default function Avatar({ src, alt }: { src?: string; alt: string }) {
+export default function Avatar({
+  src,
+  alt,
+}: {
+  src?: string | null;
+  alt: string;
+}) {
   const letter = alt.substring(0, 1);
   return (
     <>
