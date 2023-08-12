@@ -11,23 +11,38 @@ datasource db {
 }
 
 model Quote {
-  id    String @id @default(uuid())
-  quote String
-  score Int
+  id           String         @id @default(uuid())
+  quote        String
+  score        Int
+  User         User           @relation(fields: [userId], references: [id])
+  userId       String
+  QuoteAndVote QuoteAndVote[]
+}
+
+model QuoteAndVote {
+  quote     Quote    @relation(fields: [quoteId], references: [id])
+  quoteId   String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime @default(now())
+
+  @@id([quoteId, userId])
 }
 
 model User {
-  id             String    @id @default(cuid())
+  id             String         @id @default(cuid())
   name           String
-  email          String    @unique
-  username       String    @unique
+  email          String         @unique
+  username       String         @unique
   hashedPassword String
   emailVerified  DateTime?
   image          String?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
   accounts       Account[]
   sessions       Session[]
+  quotes         Quote[]
+  QuoteAndVote   QuoteAndVote[]
 }
 
 model Account {
