@@ -3,7 +3,7 @@ import HomeAllQuotes from "@/components/HomeAllQuotes";
 import getCurrentUser from "@/lib/getCurrentUser";
 
 export default async function Home() {
-  const user = false;
+  const user = await getCurrentUser();
   return (
     <>
       {user && <AddQuote />}
