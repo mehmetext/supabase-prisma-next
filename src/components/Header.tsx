@@ -4,6 +4,7 @@ import Logo from "./Logo";
 import HeaderMenu from "./HeaderMenu";
 import getCurrentUser from "@/lib/getCurrentUser";
 import Avatar from "./Avatar";
+import LogoutButton from "./LogoutButton";
 
 export default async function Header() {
   const user = await getCurrentUser();
@@ -19,12 +20,7 @@ export default async function Header() {
               <Avatar src={user.image} alt={user.username} />
               {user.username}
             </div>
-            <Link
-              href="/"
-              className="bg-red-600 py-2 px-3 font-medium rounded transition hover:bg-red-700"
-            >
-              Log Out
-            </Link>
+            <LogoutButton />
           </div>
         ) : (
           <div className="flex items-center gap-2">

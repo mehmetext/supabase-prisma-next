@@ -6,7 +6,9 @@ export default async function getCurrentUser() {
 
   if (!(session && session.user && session.user.email)) return null;
 
-  return await prisma.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: { email: session.user.email },
   });
+
+  return user;
 }

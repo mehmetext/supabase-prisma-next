@@ -3,7 +3,6 @@
 import * as Yup from "yup";
 import { useRouter } from "next/navigation";
 import { Formik } from "formik";
-import wait from "@/lib/utils/wait";
 import { signIn } from "next-auth/react";
 
 const LoginSchema = Yup.object().shape({
@@ -33,7 +32,8 @@ export default function Form() {
           return;
         }
 
-        router.replace("/");
+        router.refresh();
+        router.push("/");
       }}
     >
       {({
