@@ -3,12 +3,15 @@
 import { User } from "@prisma/client";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { useRouter } from "next/navigation";
 
 const AddQuoteSchema = Yup.object().shape({
   quote: Yup.string().required(),
 });
 
 export default function AddQuote({ user }: { user: User }) {
+  const router = useRouter();
+
   return (
     <Formik
       initialValues={{ quote: "" }}
@@ -28,6 +31,7 @@ export default function AddQuote({ user }: { user: User }) {
 
         if (data.status) {
           resetForm();
+          router.refresh();
         }
       }}
     >

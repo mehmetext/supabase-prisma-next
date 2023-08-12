@@ -1,5 +1,4 @@
 import AddQuote from "@/components/AddQuote";
-import AllQuotes from "@/components/AllQuotes";
 import HomeAllQuotes from "@/components/HomeAllQuotes";
 import getCurrentUser from "@/lib/getCurrentUser";
 
