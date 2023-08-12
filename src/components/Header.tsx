@@ -13,7 +13,7 @@ export default async function Header() {
     <header className="bg-orange-500 text-white py-5">
       <Container as="div" className="flex items-center justify-between gap-4">
         <Logo />
-        <HeaderMenu />
+        <HeaderMenu user={user} />
         {user ? (
           <div className="flex items-center justify-center gap-4">
             <div className="flex gap-2 items-center justify-center">

@@ -1,10 +1,11 @@
 "use client";
 
 import cn from "@/lib/utils/cn";
+import { User } from "@prisma/client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function HeaderMenu() {
+export default function HeaderMenu({ user }: { user?: User | null }) {
   const pathname = usePathname();
 
   return (
@@ -20,17 +21,19 @@ export default function HeaderMenu() {
       >
         Quotes
       </Link>
-      <Link
-        href="/"
-        className={cn(
-          "text-white/70 font-medium transition hover:text-white border-b border-b-transparent",
-          {
-            "border-b-white text-white": pathname === "/my-quotes",
-          }
-        )}
-      >
-        My Quotes
-      </Link>
+      {user && (
+        <Link
+          href="/profile"
+          className={cn(
+            "text-white/70 font-medium transition hover:text-white border-b border-b-transparent",
+            {
+              "border-b-white text-white": pathname === "/profile",
+            }
+          )}
+        >
+          My Quotes
+        </Link>
+      )}
     </nav>
   );
 }
