@@ -35,6 +35,7 @@ model QuoteAndVote {
 enum VoteType {
   UP
   DOWN
+  NONE
 }
 
 model User {

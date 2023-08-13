@@ -25,6 +25,7 @@ export default function AllQuotes({
         <QuoteItem
           key={quote.id}
           quote={quote}
+          me={me}
           showUpDown={me != null && me?.id !== quote.user.id}
         />
       ))}

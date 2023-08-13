@@ -1,15 +1,21 @@
+"use client";
+
 import Link from "next/link";
 import Avatar from "./Avatar";
 import { User, Quote } from "@prisma/client";
 import cn from "@/lib/utils/cn";
+import { useRouter } from "next/navigation";
 
 export default function QuoteItem({
   quote,
   showUpDown,
+  me,
 }: {
   quote: Quote & { user: User };
   showUpDown: boolean;
+  me: User | null;
 }) {
+  const router = useRouter();
   return (
     <div
       className={cn(
@@ -61,10 +67,28 @@ export default function QuoteItem({
       </div>
       {showUpDown && (
         <div className="grid grid-cols-2">
-          <button className="flex items-center justify-center py-2 text-sm bg-green-500/30 text-green-700 font-medium transition hover:bg-green-500/50">
+          <button
+            onClick={async () => {
+              await fetch(`/api/quotes/${quote.id}/${me?.id}`, {
+                method: "POST",
+                body: JSON.stringify({ type: "UP" }),
+              });
+              router.refresh();
+            }}
+            className="flex items-center justify-center py-2 text-sm bg-green-500/30 text-green-700 font-medium transition hover:bg-green-500/50"
+          >
             Up
           </button>
-          <button className="flex items-center justify-center py-2 text-sm bg-red-500/30 text-red-700 font-medium transition hover:bg-red-500/50">
+          <button
+            onClick={async () => {
+              await fetch(`/api/quotes/${quote.id}/${me?.id}`, {
+                method: "POST",
+                body: JSON.stringify({ type: "DOWN" }),
+              });
+              router.refresh();
+            }}
+            className="flex items-center justify-center py-2 text-sm bg-red-500/30 text-red-700 font-medium transition hover:bg-red-500/50"
+          >
             Down
           </button>
         </div>
