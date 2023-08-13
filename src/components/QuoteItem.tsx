@@ -36,19 +36,29 @@ export default function QuoteItem({
         {quote.quote}
         <span className="font-bold pl-1">”</span>
       </p>
-      <Link href="/" className="self-end flex items-center gap-2 mx-4">
-        <div className="flex flex-col text-right">
-          <p className="font-medium line-clamp-1 leading-none">
-            {quote.user.name}
-          </p>
-          <p className="text-xs text-black/40 leading-none">
-            {quote.user.username}
-          </p>
+      <div className="flex gap-2 justify-between mx-4 items-center">
+        <div className="text-xs text-black/40">
+          {quote.createdAt.toLocaleTimeString("en-EN", {
+            timeStyle: "short",
+            hourCycle: "h23",
+          })}{" "}
+          -{" "}
+          {quote.createdAt.toLocaleDateString("en-EN", { dateStyle: "medium" })}
         </div>
-        <div className="shrink-0">
-          <Avatar alt={quote.user.username} src={quote.user.image} />
-        </div>
-      </Link>
+        <Link href="/" className="flex items-center gap-2">
+          <div className="flex flex-col text-right">
+            <p className="font-medium line-clamp-1 leading-none">
+              {quote.user.name}
+            </p>
+            <p className="text-xs text-black/40 leading-none">
+              {quote.user.username}
+            </p>
+          </div>
+          <div className="shrink-0">
+            <Avatar alt={quote.user.username} src={quote.user.image} />
+          </div>
+        </Link>
+      </div>
       {showUpDown && (
         <div className="grid grid-cols-2">
           <button className="flex items-center justify-center py-2 text-sm bg-green-500/30 text-green-700 font-medium transition hover:bg-green-500/50">
