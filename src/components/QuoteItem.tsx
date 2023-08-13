@@ -23,6 +23,12 @@ export default function QuoteItem({
     return quote.quoteAndVote[0].type === type;
   };
 
+  const getVoteType = (): VoteType | null => {
+    if (!quote.quoteAndVote[0]) return null;
+
+    return quote.quoteAndVote[0].type;
+  };
+
   return (
     <div
       className={cn(
@@ -78,7 +84,10 @@ export default function QuoteItem({
             onClick={async () => {
               await fetch(`/api/quotes/${quote.id}/${me?.id}`, {
                 method: "POST",
-                body: JSON.stringify({ type: "UP" }),
+                body: JSON.stringify({
+                  type: "UP",
+                  currentType: getVoteType(),
+                }),
               });
               router.refresh();
             }}
@@ -98,7 +107,10 @@ export default function QuoteItem({
             onClick={async () => {
               await fetch(`/api/quotes/${quote.id}/${me?.id}`, {
                 method: "POST",
-                body: JSON.stringify({ type: "DOWN" }),
+                body: JSON.stringify({
+                  type: "DOWN",
+                  currentType: getVoteType(),
+                }),
               });
               router.refresh();
             }}

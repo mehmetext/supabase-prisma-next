@@ -9,46 +9,42 @@ export async function POST(
   }: { params: { quoteId: string; userId: string } }
 ) {
   try {
-    const { type }: { type: VoteType } = await req.json();
+    const { type, currentType }: { type: VoteType; currentType: VoteType } =
+      await req.json();
 
     let quoteAndVote!: QuoteAndVote | null, quote!: Quote | null;
 
     console.log(1);
-    const exists = await prisma.quoteAndVote.findUnique({
-      where: { quoteId_userId: { quoteId: quoteId, userId: userId } },
-    });
 
-    if (exists) {
+    if (currentType) {
       console.log(2);
-      if (exists.type === type) {
-        console.log(3);
-        [quoteAndVote, quote] = await prisma.$transaction([
-          prisma.quoteAndVote.update({
-            where: {
-              quoteId_userId: { quoteId: quoteId, userId: userId },
-            },
-            data: {
-              type: "NONE",
-            },
-          }),
-          updateQuoteScore(quoteId, type === "UP" ? -1 : 1),
-        ]);
-      } else {
-        console.log(4);
-        [quoteAndVote, quote] = await prisma.$transaction([
-          prisma.quoteAndVote.update({
-            where: {
-              quoteId_userId: { quoteId: quoteId, userId: userId },
-            },
-            data: {
-              type: type,
-            },
-          }),
-          updateQuoteScore(quoteId, type === "UP" ? 2 : -2),
-        ]);
-      }
+      const updateType = currentType === type ? "NONE" : type;
+      const scoreChange =
+        currentType === type
+          ? type === "UP"
+            ? -1
+            : 1
+          : currentType !== "NONE"
+          ? type === "UP"
+            ? 2
+            : -2
+          : type === "UP"
+          ? 1
+          : -1;
+
+      [quoteAndVote, quote] = await prisma.$transaction([
+        prisma.quoteAndVote.update({
+          where: {
+            quoteId_userId: { quoteId: quoteId, userId: userId },
+          },
+          data: {
+            type: updateType,
+          },
+        }),
+        updateQuoteScore(quoteId, scoreChange),
+      ]);
     } else {
-      console.log(5);
+      console.log(6);
       [quoteAndVote, quote] = await prisma.$transaction([
         prisma.quoteAndVote.create({
           data: {
@@ -61,7 +57,7 @@ export async function POST(
       ]);
     }
 
-    console.log(6);
+    console.log(7);
     return NextResponse.json({
       status: "ok",
       quoteAndVote: quoteAndVote,
