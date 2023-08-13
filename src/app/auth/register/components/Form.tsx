@@ -7,7 +7,13 @@ import { signIn } from "next-auth/react";
 
 const RegisterSchema = Yup.object().shape({
   name: Yup.string().required("Required").max(40, "Too long!"),
-  username: Yup.string().required("Required").max(20, "Too long!"),
+  username: Yup.string()
+    .required("Required")
+    .max(20, "Too long!")
+    .test("username-check", "Username is invalid", (val) => {
+      console.log(val);
+      return /^[a-zA-Z0-9]+$/.test(val);
+    }),
   email: Yup.string().email("Invalid E-Mail").required("Required"),
   password: Yup.string().required("Required"),
   password2: Yup.string()
