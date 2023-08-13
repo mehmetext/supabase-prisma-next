@@ -64,7 +64,10 @@ export default function QuoteItem({
           -{" "}
           {quote.createdAt.toLocaleDateString("en-EN", { dateStyle: "medium" })}
         </div>
-        <Link href="/" className="flex items-center gap-2">
+        <Link
+          href={`/${quote.user.username}`}
+          className="flex items-center gap-2"
+        >
           <div className="flex flex-col text-right">
             <p className="font-medium line-clamp-1 leading-none">
               {quote.user.name}
