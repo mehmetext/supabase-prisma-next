@@ -11,10 +11,7 @@ export default async function Header() {
 
   return (
     <header className="bg-orange-500 text-white py-5">
-      <Container
-        as="div"
-        className="flex flex-col sm:flex-row items-center justify-between gap-4"
-      >
+      <Container as="div" className="flex items-center justify-between gap-4">
         <Logo />
         <HeaderMenu user={user} />
         {user ? (
