@@ -19,10 +19,13 @@ export default async function Header() {
         <HeaderMenu user={user} />
         {user ? (
           <div className="flex items-center justify-center gap-4">
-            <div className="flex gap-2 items-center justify-center">
+            <Link
+              href={`/${user.username}`}
+              className="flex gap-2 items-center justify-center"
+            >
               <Avatar src={user.image} alt={user.username} />
               {user.username}
-            </div>
+            </Link>
             <LogoutButton />
           </div>
         ) : (

@@ -21,19 +21,6 @@ export default function HeaderMenu({ user }: { user?: User | null }) {
       >
         Quotes
       </Link>
-      {user && (
-        <Link
-          href="/profile"
-          className={cn(
-            "text-white/70 font-medium transition hover:text-white border-b border-b-transparent",
-            {
-              "border-b-white text-white": pathname === "/profile",
-            }
-          )}
-        >
-          My Quotes
-        </Link>
-      )}
     </nav>
   );
 }
