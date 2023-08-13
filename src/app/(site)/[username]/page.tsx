@@ -1,5 +1,7 @@
+import ProfileInfo from "@/components/ProfileInfo";
 import { prisma } from "@/lib/prisma";
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 export async function generateMetadata({
   params: { username },
@@ -13,10 +15,18 @@ export async function generateMetadata({
   };
 }
 
-export default function Profile({
+export default async function Profile({
   params: { username },
 }: {
   params: { username: string };
 }) {
-  return <div>{username}</div>;
+  const user = await prisma.user.findUnique({ where: { username } });
+
+  if (!user) notFound();
+
+  return (
+    <>
+      <ProfileInfo user={user} />
+    </>
+  );
 }

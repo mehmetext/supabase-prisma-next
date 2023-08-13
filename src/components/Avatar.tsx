@@ -1,9 +1,13 @@
+import cn from "@/lib/utils/cn";
+
 export default function Avatar({
   src,
   alt,
+  className,
 }: {
   src?: string | null;
   alt: string;
+  className?: string;
 }) {
   const letter = alt.substring(0, 1);
   return (
@@ -12,10 +16,15 @@ export default function Avatar({
         <img
           src={src}
           alt={alt}
-          className="w-8 h-8 rounded-full object-cover"
+          className={cn("w-8 h-8 rounded-full object-cover", className)}
         />
       ) : (
-        <span className="w-8 h-8 flex items-center justify-center rounded-full bg-orange-700 text-white text-xs font-medium select-none">
+        <span
+          className={cn(
+            "w-8 h-8 flex items-center justify-center rounded-full bg-orange-700 text-white text-xs font-medium select-none",
+            className
+          )}
+        >
           {letter}
         </span>
       )}
