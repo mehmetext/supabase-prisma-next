@@ -8,6 +8,8 @@ import { usePathname } from "next/navigation";
 export default function HeaderMenu({ user }: { user?: User | null }) {
   const pathname = usePathname();
 
+  return <></>;
+
   return (
     <nav className="flex-1 flex items-center gap-4">
       <Link
