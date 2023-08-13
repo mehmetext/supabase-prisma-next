@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Avatar from "./Avatar";
-import { User, Quote } from "@prisma/client";
+import { User, Quote, QuoteAndVote, VoteType } from "@prisma/client";
 import cn from "@/lib/utils/cn";
 import { useRouter } from "next/navigation";
 
@@ -11,11 +11,18 @@ export default function QuoteItem({
   showUpDown,
   me,
 }: {
-  quote: Quote & { user: User };
+  quote: Quote & { user: User; quoteAndVote: QuoteAndVote[] };
   showUpDown: boolean;
   me: User | null;
 }) {
   const router = useRouter();
+
+  const checkVoteType = (type: VoteType) => {
+    if (!quote.quoteAndVote[0]) return false;
+
+    return quote.quoteAndVote[0].type === type;
+  };
+
   return (
     <div
       className={cn(
@@ -75,9 +82,17 @@ export default function QuoteItem({
               });
               router.refresh();
             }}
-            className="flex items-center justify-center py-2 text-sm bg-green-500/30 text-green-700 font-medium transition hover:bg-green-500/50"
+            className={cn(
+              "flex items-center justify-center py-2 text-sm font-medium transition",
+              {
+                "bg-green-500/30 text-green-700 hover:bg-green-500/50":
+                  !checkVoteType("UP"),
+                "bg-green-700 text-white hover:bg-green-800":
+                  checkVoteType("UP"),
+              }
+            )}
           >
-            Up
+            {checkVoteType("UP") ? "Upped" : "Up"}
           </button>
           <button
             onClick={async () => {
@@ -87,9 +102,16 @@ export default function QuoteItem({
               });
               router.refresh();
             }}
-            className="flex items-center justify-center py-2 text-sm bg-red-500/30 text-red-700 font-medium transition hover:bg-red-500/50"
+            className={cn(
+              "flex items-center justify-center py-2 text-sm font-medium transition",
+              {
+                "bg-red-500/30 text-red-700 hover:bg-red-500/50":
+                  !checkVoteType("DOWN"),
+                "bg-red-700 text-white hover:bg-red-800": checkVoteType("DOWN"),
+              }
+            )}
           >
-            Down
+            {checkVoteType("DOWN") ? "Downed" : "Down"}
           </button>
         </div>
       )}

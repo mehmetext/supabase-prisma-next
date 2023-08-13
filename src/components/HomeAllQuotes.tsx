@@ -3,11 +3,19 @@ import AllQuotes from "./AllQuotes";
 import getCurrentUser from "@/lib/getCurrentUser";
 
 export default async function HomeAllQuotes() {
+  const user = await getCurrentUser();
+
   const quotes = await prisma.quote.findMany({
-    include: { user: true },
+    include: {
+      user: true,
+      quoteAndVote: {
+        where: {
+          userId: user?.id,
+        },
+      },
+    },
     orderBy: [{ createdAt: "desc" }],
   });
-  const user = await getCurrentUser();
 
   return <AllQuotes quotes={quotes} me={user} />;
 }

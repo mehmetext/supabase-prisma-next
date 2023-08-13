@@ -1,6 +1,6 @@
 "use client";
 
-import { Quote, User } from "@prisma/client";
+import { Quote, QuoteAndVote, User } from "@prisma/client";
 import QuoteItem from "./QuoteItem";
 import Masonry from "react-masonry-css";
 
@@ -8,7 +8,7 @@ export default function AllQuotes({
   quotes,
   me,
 }: {
-  quotes: Array<Quote & { user: User }>;
+  quotes: Array<Quote & { user: User; quoteAndVote: QuoteAndVote[] }>;
   me: User | null;
 }) {
   return (
