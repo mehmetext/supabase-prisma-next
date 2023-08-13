@@ -9,35 +9,19 @@ export async function POST(
   }: { params: { quoteId: string; userId: string } }
 ) {
   try {
-    console.log(1);
     const { type }: { type: VoteType } = await req.json();
 
-    console.log(2);
+    let quoteAndVote!: QuoteAndVote | null, quote!: Quote | null;
+
+    console.log(1);
     const exists = await prisma.quoteAndVote.findUnique({
       where: { quoteId_userId: { quoteId: quoteId, userId: userId } },
     });
 
-    let quoteAndVote!: QuoteAndVote | null, quote!: Quote | null;
-
     if (exists) {
-      console.log(3);
-
-      if (exists.type !== type) {
-        console.log(4);
-
-        [quoteAndVote, quote] = await prisma.$transaction([
-          prisma.quoteAndVote.update({
-            where: {
-              quoteId_userId: { quoteId: quoteId, userId: userId },
-            },
-            data: {
-              type: type,
-            },
-          }),
-          updateQuoteScore(quoteId, type === "UP" ? 2 : -2),
-        ]);
-      } else {
-        console.log(5);
+      console.log(2);
+      if (exists.type === type) {
+        console.log(3);
         [quoteAndVote, quote] = await prisma.$transaction([
           prisma.quoteAndVote.update({
             where: {
@@ -49,9 +33,22 @@ export async function POST(
           }),
           updateQuoteScore(quoteId, type === "UP" ? -1 : 1),
         ]);
+      } else {
+        console.log(4);
+        [quoteAndVote, quote] = await prisma.$transaction([
+          prisma.quoteAndVote.update({
+            where: {
+              quoteId_userId: { quoteId: quoteId, userId: userId },
+            },
+            data: {
+              type: type,
+            },
+          }),
+          updateQuoteScore(quoteId, type === "UP" ? 2 : -2),
+        ]);
       }
     } else {
-      console.log(6);
+      console.log(5);
       [quoteAndVote, quote] = await prisma.$transaction([
         prisma.quoteAndVote.create({
           data: {
@@ -64,7 +61,7 @@ export async function POST(
       ]);
     }
 
-    console.log(7);
+    console.log(6);
     return NextResponse.json({
       status: "ok",
       quoteAndVote: quoteAndVote,
