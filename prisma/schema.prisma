@@ -26,9 +26,15 @@ model QuoteAndVote {
   quoteId   String
   user      User     @relation(fields: [userId], references: [id])
   userId    String
+  type      VoteType
   createdAt DateTime @default(now())
 
   @@id([quoteId, userId])
+}
+
+enum VoteType {
+  UP
+  DOWN
 }
 
 model User {
