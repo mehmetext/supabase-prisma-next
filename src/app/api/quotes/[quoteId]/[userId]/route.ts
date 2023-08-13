@@ -8,8 +8,6 @@ export async function POST(
     params: { quoteId, userId },
   }: { params: { quoteId: string; userId: string } }
 ) {
-  console.log(0);
-  return NextResponse.json({ result: "ok" });
   try {
     console.log(1);
     const { type }: { type: VoteType } = await req.json();
