@@ -44,9 +44,11 @@ export default async function Profile({
 
   if (!user) notFound();
 
+  const isMyProfile = () => user.id === me?.id;
+
   return (
     <>
-      <ProfileInfo user={user} />
+      <ProfileInfo user={user} isMyProfile={isMyProfile()} />
       <ProfileAllQuotes quotes={quotes} me={me} />
     </>
   );
