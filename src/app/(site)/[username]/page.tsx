@@ -35,7 +35,7 @@ export default async function Profile({
       user: true,
       quoteAndVote: {
         where: {
-          userId: user?.id,
+          userId: me?.id,
         },
       },
     },
