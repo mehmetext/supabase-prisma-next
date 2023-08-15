@@ -1,4 +1,3 @@
-import AllQuotes from "@/components/AllQuotes";
 import ProfileAllQuotes from "@/components/ProfileAllQuotes";
 import ProfileInfo from "@/components/ProfileInfo";
 import getCurrentUser from "@/lib/getCurrentUser";
