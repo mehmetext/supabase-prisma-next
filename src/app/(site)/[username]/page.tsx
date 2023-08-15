@@ -23,24 +23,26 @@ export default async function Profile({
   params: { username: string };
 }) {
   const me = await getCurrentUser();
-  const user = await prisma.user.findUnique({ where: { username } });
 
-  if (!user) notFound();
-
-  const quotes = await prisma.quote.findMany({
-    where: {
-      userId: user?.id,
-    },
-    include: {
-      user: true,
-      quoteAndVote: {
-        where: {
-          userId: me?.id,
+  const [user, quotes] = await Promise.all([
+    prisma.user.findUnique({ where: { username } }),
+    prisma.quote.findMany({
+      where: {
+        user: { username: username },
+      },
+      include: {
+        user: true,
+        quoteAndVote: {
+          where: {
+            user: { username: me?.username },
+          },
         },
       },
-    },
-    orderBy: [{ createdAt: "desc" }],
-  });
+      orderBy: [{ createdAt: "desc" }],
+    }),
+  ]);
+
+  if (!user) notFound();
 
   return (
     <>
