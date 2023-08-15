@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
 import Avatar from "./Avatar";
 
-export default function ProfileInfo({ user }: { user: User }) {
+export default async function ProfileInfo({ user }: { user: User }) {
   return (
     <div className="flex flex-col items-center gap-4">
       <Avatar
