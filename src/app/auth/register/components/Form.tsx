@@ -12,7 +12,7 @@ const RegisterSchema = Yup.object().shape({
     .max(20, "Too long!")
     .test("username-check", "Username is invalid", (val) => {
       console.log(val);
-      return /^[a-zA-Z0-9]+$/.test(val);
+      return /^[_a-z][_a-z0-9]*$/.test(val);
     }),
   email: Yup.string().email("Invalid E-Mail").required("Required"),
   password: Yup.string().required("Required"),
