@@ -24,6 +24,9 @@ export default async function Profile({
 }) {
   const me = await getCurrentUser();
   const user = await prisma.user.findUnique({ where: { username } });
+
+  if (!user) notFound();
+
   const quotes = await prisma.quote.findMany({
     where: {
       userId: user?.id,
@@ -38,8 +41,6 @@ export default async function Profile({
     },
     orderBy: [{ createdAt: "desc" }],
   });
-
-  if (!user) notFound();
 
   return (
     <>
