@@ -1,4 +1,5 @@
 import AllQuotes from "@/components/AllQuotes";
+import ProfileAllQuotes from "@/components/ProfileAllQuotes";
 import ProfileInfo from "@/components/ProfileInfo";
 import getCurrentUser from "@/lib/getCurrentUser";
 import { prisma } from "@/lib/prisma";
@@ -47,10 +48,7 @@ export default async function Profile({
   return (
     <>
       <ProfileInfo user={user} />
-      <div className="flex flex-col w-full gap-2">
-        <div className="text-3xl font-bold">Quotes</div>
-        <AllQuotes quotes={quotes} me={me} />
-      </div>
+      <ProfileAllQuotes quotes={quotes} me={me} />
     </>
   );
 }
