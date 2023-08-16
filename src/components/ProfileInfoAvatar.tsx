@@ -52,6 +52,7 @@ export default function ProfileInfoAvatar({
                 type="file"
                 name="photo"
                 id="photo"
+                accept="image/*"
                 onChange={handleSelectPhoto}
               />
               <button
@@ -75,8 +76,11 @@ export default function ProfileInfoAvatar({
         <div className="flex gap-2">
           <button
             onClick={async () => {
+              const formData = new FormData();
+              formData.set("photo", photo);
               await fetch("/api/users/lkj123lkj/photo", {
                 method: "POST",
+                body: formData,
               });
             }}
             className="bg-green-600 py-1 px-2 text-sm font-medium rounded transition hover:bg-green-700 text-white disabled:cursor-wait disabled:bg-green-600/60"
