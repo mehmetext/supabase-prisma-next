@@ -12,6 +12,8 @@ export default function ProfileInfoAvatar({
   user: User;
   isMyProfile: boolean;
 }) {
+  const [loading, setLoading] = useState(false);
+
   const router = useRouter();
   const inputFile = useRef<HTMLInputElement>(null);
   const [photo, setPhoto] = useState<File | null>();
@@ -75,19 +77,32 @@ export default function ProfileInfoAvatar({
       {photo && (
         <div className="flex gap-2">
           <button
+            disabled={loading}
             onClick={async () => {
+              setLoading(true);
               const formData = new FormData();
               formData.set("photo", photo);
-              await fetch("/api/users/lkj123lkj/photo", {
+              const res = await fetch("/api/users/lkj123lkj/photo", {
                 method: "POST",
                 body: formData,
               });
+              const body = await res.json();
+              setLoading(false);
+
+              if (!body.status) {
+                console.log(body.message);
+              } else {
+                setPhoto(null);
+                setPhotoSrc(null);
+                router.refresh();
+              }
             }}
             className="bg-green-600 py-1 px-2 text-sm font-medium rounded transition hover:bg-green-700 text-white disabled:cursor-wait disabled:bg-green-600/60"
           >
             Save Photo
           </button>
           <button
+            disabled={loading}
             onClick={() => {
               setPhoto(null);
             }}
