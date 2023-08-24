@@ -5,7 +5,7 @@ import getCurrentUser from "@/lib/getCurrentUser";
 export default async function Home({
   searchParams: { page },
 }: {
-  searchParams: { page?: number };
+  searchParams: { page?: string };
 }) {
   const user = await getCurrentUser();
 
