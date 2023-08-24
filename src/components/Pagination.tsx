@@ -56,7 +56,7 @@ export default function Pagination({
             href={`?page=${number}`}
             key={index}
             className={`cursor-pointer w-10 h-10 rounded-full flex items-center justify-center ${
-              number === currentPage ? "bg-blue-500 text-white font-bold" : ""
+              number === currentPage ? "bg-orange-500 text-white font-bold" : ""
             }`}
             // onClick={() => handlePageChange(number)}
           >
