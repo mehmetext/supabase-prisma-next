@@ -50,11 +50,10 @@ export default function Pagination({
     }
 
     return pageNumbers.map((number, index) => (
-      <>
+      <React.Fragment key={index}>
         {typeof number === "number" ? (
           <Link
             href={`?page=${number}`}
-            key={index}
             className={`cursor-pointer w-10 h-10 rounded-full flex items-center justify-center ${
               number === currentPage ? "bg-orange-500 text-white font-bold" : ""
             }`}
@@ -64,14 +63,13 @@ export default function Pagination({
           </Link>
         ) : (
           <span
-            key={index}
             className={`cursor-pointer w-10 h-10 rounded-full flex items-center justify-center`}
             // onClick={() => handlePageChange(number)}
           >
             {number}
           </span>
         )}
-      </>
+      </React.Fragment>
     ));
   };
 
